@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-//inheritance using composition and interface
+//inheritance using composition
 
 type Entity struct{
 	Id string
