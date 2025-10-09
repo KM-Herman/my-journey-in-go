@@ -12,17 +12,17 @@ type PaymentProcessor interface {
 }
 
 type PayPalProcessor struct {
-	ApiKey             string
-	Sandbox            bool
-	Balance            float64
+	ApiKey string
+	Sandbox bool
+	Balance float64
 	TransactionCounter int
 }
 
 
 type StripeProcessor struct {
-    SecretKey   string
-    Balance     float64
-    Currency    string
+    SecretKey string
+    Balance float64
+    Currency string
 }
 
 func NewPaypalProcessor(apikey string, sanbox bool) PaymentProcessor {
@@ -133,7 +133,7 @@ func ProcessOrder(processor PaymentProcessor, amount float64) {
         return
     }
     
-    fmt.Printf("Payment successful! Transaction ID: %s\n", transactionId)
+    fmt.Printf("Payment successful Transaction ID: %s\n", transactionId)
     fmt.Printf("Current balance: $%.2f\n", processor.GetBalance())
 }
 
