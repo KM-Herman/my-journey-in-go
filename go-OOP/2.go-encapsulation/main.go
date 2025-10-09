@@ -18,8 +18,8 @@ func NewCompany(id string, name string, country string) Company {
 	}
 
 	return Company{
-		Id:      id,
-		Name:    name,
+		Id: id,
+		Name: name,
 		Country: country,
 	}
 }
