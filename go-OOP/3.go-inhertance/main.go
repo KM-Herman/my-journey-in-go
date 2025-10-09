@@ -45,8 +45,8 @@ func (e Entity) DisplayInfo() string {
 
 type Company struct {
 	Entity    // this provides inheritance
-	Name      string
-	Country   string
+	Name string
+	Country string
 	Employees int
 }
 
@@ -73,7 +73,7 @@ func (c Company) GetName() string {
 
 func (c *Company) SetEmployees(count int) {
 	c.Employees = count
-	c.UpdateTimestamp() // Can call parent method
+	c.UpdateTimestamp()
 }
 
 func (c Company) GetEmployeeCount() int {
