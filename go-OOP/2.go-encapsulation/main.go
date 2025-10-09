@@ -3,8 +3,8 @@ package main
 import "fmt"
 
 type Company struct {
-	Id      string
-	Name    string
+	Id string
+	Name string
 	Country string
 }
 
