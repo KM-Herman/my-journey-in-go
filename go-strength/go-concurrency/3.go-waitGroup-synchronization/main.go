@@ -4,8 +4,9 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"time"
 	"strings"
+	"sync"
+	"time"
 )
 
 func processFile(filename string) (int, int, error) {
@@ -15,13 +16,13 @@ func processFile(filename string) (int, int, error) {
 		return 0, 0, err
 	}
 
-	defer file.Close() 
+	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
 	lineCount := 0
 	wordCount := 0
 
-	for scanner.Scan(){
+	for scanner.Scan() {
 		lineCount++
 		words := strings.Fields(scanner.Text())
 		wordCount += len(words)
@@ -36,33 +37,32 @@ func processFile(filename string) (int, int, error) {
 	return lineCount, wordCount, nil
 }
 
-func main() {
+func main(){
 
 	files := []string{"file1.txt", "file2.txt", "file3.txt", "file4.txt"}
 
-	for i, fileName := range files {
+	for i, fileName := range files{
+
 		content := fmt.Sprintf("This is file %d\nIt has multiple lines\nAnd words to count", i+1)
 
-		os.WriteFile(fileName, []byte(content), 0644)
-		defer os.Remove(fileName)
-	}
+        os.WriteFile(fileName, []byte(content), 0644)
+
+        defer os.Remove(fileName)
+    }
 
 	start := time.Now()
 
+	var wg sync.WaitGroup
+	totalLines, totalWords := 0,0
+	var mu sync.Mutex
+
 	for _, fileName := range files{
-		go func (f string){ //goroutine means all files can be read and counted simultaneously, instead of one after the other
+		wg.Add(1)
+		go func(f string){
+			defer wg.Done()
 
 			lines, words, err := processFile(f)
-
-			if err != nil{
-				fmt.Printf("Error processing %s: %v\n", f, err)
-                return
-			}
-			fmt.Printf("%s - Lines: %d, Words: %d\n", f, lines, words)
-		}(fileName)
+		}
 	}
-
-	time.Sleep(2 * time.Second)
-    fmt.Printf("Time taken: %v\n", time.Since(start))
 
 }
