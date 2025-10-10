@@ -62,7 +62,23 @@ func main(){
 			defer wg.Done()
 
 			lines, words, err := processFile(f)
-		}
+
+			if err != nil {
+				fmt.Printf("Error processing %s: %v\n", f, err)
+                return
+			}
+
+			fmt.Printf("%s - Lines: %d, Words: %d\n", f, lines, words)
+
+			mu.Lock()
+			totalLines += lines
+			totalWords += words
+			mu.Unlock()
+		}(fileName)
 	}
 
+	wg.Wait()
+
+	fmt.Printf("Total Lines: %d, Words: %d\n", totalLines, totalWords)
+    fmt.Printf("Time taken: %v\n", time.Since(start))
 }
