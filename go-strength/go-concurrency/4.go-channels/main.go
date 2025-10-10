@@ -55,7 +55,7 @@ func main(){
 	}
 
 	start := time.Now()
-	results := make(chan File, len(files))
+	results := make(chan File, len(files)) //  channel is like a pipe that goroutines can use to send values to each other safely
 
 	for _, fileName := range files{
 		go func(f string){
