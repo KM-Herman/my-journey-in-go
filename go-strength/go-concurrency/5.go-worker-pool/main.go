@@ -103,7 +103,7 @@ func main(){
 		if result.Error != nil{
 			fmt.Printf("Error processing %s: %v\n", result.FileName, result.Error)
 		}else{
-			fmt.Printf("✅ %s - Lines: %d, Words: %d\n", result.FileName, result.Lines, result.Words)
+			fmt.Printf("%s - Lines: %d, Words: %d\n", result.FileName, result.Lines, result.Words)
             totalLines += result.Lines
             totalWords += result.Words
 		}
