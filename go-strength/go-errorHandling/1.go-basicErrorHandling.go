@@ -29,7 +29,7 @@ func readFile(filename string) (string, error) {
 func main() {
 
 	//1. Division by zero error handling
-	
+
 	result, err := divide(10, 0)
 	if err != nil{
 		fmt.Printf("Error: %v\n", err)
@@ -48,7 +48,7 @@ func main() {
 
    //3. File reading error handling
 
-	content, err := readFile("nonexistent.txt")
+	content, err := readFile("textFile.txt")
     if err != nil {
         fmt.Printf("File error: %v\n", err)
     } else {
